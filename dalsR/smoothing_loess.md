@@ -1,15 +1,12 @@
----
-title: "LOESS"
-author: "Yiting"
-date: "2025-08-13"
-output: github_document
----
+LOESS
+================
+Yiting
+2025-08-13
 
-Visualize the the probability of being 'Heights between 160 and 178' with:
-  1 Connected_line (raw probability values)
-  2 Smoothing via LOESS
+Visualize the the probability of being ‘Heights between 160 and 178’
+with: 1 Connected_line (raw probability values) 2 Smoothing via LOESS
 
-```{r, fig.width=4, fig.height=4} 
+``` r
 n = 10000                    # sample_size
 N = 250                      # reduced_sample_size
 set.seed(1)
@@ -24,7 +21,12 @@ X = x[ind]
 
 height_lo <- loess(Y ~ X)
 predict(height_lo, data.frame(X = 168))
+```
 
+    ##         1 
+    ## 0.5863826
+
+``` r
 xs = seq(160,178)
 Pr =sapply(xs,function(x0) mean(Y[X==x0]))
 plot(xs, Pr, type = c('o'), col='red')
@@ -33,3 +35,5 @@ lines(xs,fitted,col='blue')
 legend("topright", legend = c("Connected_line", "LOESS"), 
        col=c("red", "blue"), lty= 1)
 ```
+
+![](smoothing_loess_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
